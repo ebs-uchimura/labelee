@@ -25,15 +25,15 @@ var transporter = nodemailer.createTransport({
     use_authentication: false, // not authorize
     tls: {
         rejectUnauthorized: false // do not fail on invalid certs
-    }
-});
+      }
+    });
 //　mail options
 var mailOptions = {
     from: '*****', // sender
     to: '*****', // receiver
     subject: '*****',　// title
     text: ''　// body
-};
+  };
 
 // PASSPORT configuration↓----------------------------------
 // passport initialization
@@ -54,8 +54,8 @@ app.use(session({
         secure: false, 
         // cookie keep time
         maxage: 1000 * 60 * 30
-    }
-}));
+      }
+    }));
 // passport
 app.use(passport.session());
 
@@ -85,7 +85,7 @@ const conn = mysql.createConnection({
 conn.connect((err) => {
   if (err) {
     // error
-  	console.log("e-101: SQL Error" + err);
+    console.log("e-101: SQL Error" + err);
   }
   // success
   console.log("903: SQL connected");
@@ -98,7 +98,7 @@ passport.use(new LocalStrategy({
   },
   function(username, password, done) {
     // extract user data
-  	conn.query('SELECT * FROM ?? WHERE ?? = ?', ['admin_user', 'login_id', username], function (err, user) {
+    conn.query('SELECT * FROM ?? WHERE ?? = ?', ['admin_user', 'login_id', username], function (err, user) {
       if (err) { 
         // DB error
         return done(err);
@@ -119,7 +119,7 @@ passport.use(new LocalStrategy({
       })
     });
   }
-));
+  ));
 // serialize
 passport.serializeUser(function(user, done) {
   done(null, user);
@@ -140,7 +140,7 @@ init();
 // ★ ↓GET
 // login
 app.get('/login', function(req, res){
-    res.render('login.ejs', {});
+  res.render('login.ejs', {});
 });
 
 // edit
@@ -334,7 +334,7 @@ app.get('/del_open', function(req, res){
         }
       });
     // category is 2
-    } else if(category == 2){
+  } else if(category == 2){
       // select user
       conn.query('DELETE * FROM ?? WHERE ?? = ?', ['user', 'id', index], function (err2, results2) {
         if(err2){
@@ -347,7 +347,7 @@ app.get('/del_open', function(req, res){
         }
       });
     // category is 3
-    } else if(category == 3){
+  } else if(category == 3){
       // select item
       conn.query('DELETE * FROM ?? WHERE ?? = ?', ['item', 'id', index], function (err3, results3) {
         if(err3){
@@ -360,7 +360,7 @@ app.get('/del_open', function(req, res){
         }
       });
     // category is 4
-    } else if(category == 4){
+  } else if(category == 4){
       // select agent
       conn.query('DELETE * FROM ?? WHERE ?? = ?', ['agent', 'id', index], function (err4, results4) {
         if(err4){
@@ -373,7 +373,7 @@ app.get('/del_open', function(req, res){
         }
       });
     // category is 5
-    } else if(category == 5){
+  } else if(category == 5){
       // select label
       conn.query('DELETE * FROM ?? WHERE ?? = ?', ['label', 'id', index], function (err5, results5) {
         if(err5){
@@ -484,7 +484,7 @@ app.post('/view', function(req, res){
                             res.render('manage_view.ejs', {data: {order: rows, user: rows2, item: rows3, agent: rows4, label: rows5, owner: rows6, times: times}});
                           } else {
                             // result is empty
-                          	console.log("e-020: owner table is empty");
+                            console.log("e-020: owner table is empty");
                           }
                         });
                       } else {
@@ -641,22 +641,22 @@ app.post('/edit_data1', function(req, res){
   	conn.query('UPDATE ?? SET ?? = ?, ?? = ?, ?? = ?, ?? = ?, ?? = ?, ?? = ? WHERE ?? = ?', ['order', 'total', new_gross, 'date', req.body.date, 'ownerid', req.body.ownerid, 'paid', Number(req.body.paid), 'progress', Number(req.body.progress), 'updated_at', now, 'rand_id', req.body.rand], function (err, results) {
   		if(err){
         // UPDATE error
-  			console.log("e-038: DB Error -UPDATE- -man_order- : " + err);
-  		}
+        console.log("e-038: DB Error -UPDATE- -man_order- : " + err);
+      }
       if(results){
         // UPDATE success
-  			console.log("224: man_order_update_success : " + results);
-  			conn.query('UPDATE ?? SET ?? = ?, ?? = ?, ?? = ?, ??= ?, ?? = ?, ?? = ?, ?? = ? WHERE ?? = ?', ['order', 'total', new_gross, 'itemcount', req.body.itemcount, 'date', req.body.date, 'ownerid', req.body.ownerid, 'paid', Number(req.body.paid), 'progress', Number(req.body.progress), 'updated_at', now, 'id', req.body.id], function (err2, results2) {
-					if(err2){
+        console.log("224: man_order_update_success : " + results);
+        conn.query('UPDATE ?? SET ?? = ?, ?? = ?, ?? = ?, ??= ?, ?? = ?, ?? = ?, ?? = ? WHERE ?? = ?', ['order', 'total', new_gross, 'itemcount', req.body.itemcount, 'date', req.body.date, 'ownerid', req.body.ownerid, 'paid', Number(req.body.paid), 'progress', Number(req.body.progress), 'updated_at', now, 'id', req.body.id], function (err2, results2) {
+         if(err2){
             // UPDATE error
-						console.log("e-038: DB Error -UPDATE- -man_order- : " + err2);
-					} else {
+            console.log("e-038: DB Error -UPDATE- -man_order- : " + err2);
+          } else {
             // UPDATE success
-						console.log("224: man_order_update_success : " + results2);
-					}
-				});
-  		}
-		});
+            console.log("224: man_order_update_success : " + results2);
+          }
+        });
+      }
+    });
   } else {
     console.log("e-204: Session Error -SELECT- -man_edit- : ");
     // session timeout
@@ -667,20 +667,20 @@ app.post('/edit_data1', function(req, res){
 // user edit
 app.post('/edit_data2', function(req, res){
   // now time
-	var now = getTime();
+  var now = getTime();
 	// confirm session
   if(req.session.passport){
   	// update user
   	conn.query('UPDATE ?? SET ?? = ?, ?? = ?, ?? = ?, ?? = ?, ?? = ?, ?? = ?, ?? = ?, ?? = ?, ?? = ? WHERE ?? = ?', ['user', 'name', req.body.name, 'ruby', req.body.ruby, 'group', req.body.group, 'zip', req.body.zip, 'address', req.body.addr, 'tel', req.body.tel, 'mail', req.body.mail, 'ownerid', req.body.ownerid, 'updated_at', now, 'id', req.body.id], function (err3, results3) {
   		if(err3){
         // UPDATE error
-  			console.log("e-038: DB Error -UPDATE- -man_order- : " + err3);
-  		}
+        console.log("e-038: DB Error -UPDATE- -man_order- : " + err3);
+      }
       if(results3){
         //　UPDATE success
-  			console.log("224: man_order_update_success : " + results3);
-  		}
-		});
+        console.log("224: man_order_update_success : " + results3);
+      }
+    });
   } else {
     console.log("e-204: Session Error -SELECT- -man_edit- : ");
     // session time out
@@ -788,12 +788,12 @@ app.post('/edit_data6', function(req, res){
 // ★↓GET
 // redirect
 app.get('/', function(req, res){
-    res.redirect('/kosei');
+  res.redirect('/kosei');
 });
 
 // thanks page
 app.get('/comp', function(req, res){
-    res.render('comp.ejs', {});
+  res.render('comp.ejs', {});
 });
 
 // home
@@ -808,7 +808,7 @@ app.get('/kosei', function(req, res, next){
 app.post('/auth', function(req, res, next){
 	console.log("101: auth");
   // globalize user ID
-	global_id = req.body.data.id;
+  global_id = req.body.data.id;
   // extract agent
   conn.query('SELECT * FROM ?? WHERE ?? = ?', ['item', 'agentid', 1], function (err, rows) {
     if(err){
@@ -867,7 +867,7 @@ app.post('/post_json', function(req, res, next){
 	// user info
 	var user_data = req.body.data.sent_item.user;
   // user env info
-	var env_data = req.body.data.sent_item.environment;
+  var env_data = req.body.data.sent_item.environment;
 	// font info
 	var font_data = req.body.data.sent_item.font;
   // text info
@@ -886,7 +886,7 @@ app.post('/post_json', function(req, res, next){
   // image URL
   var img_urls = [];
   // now time
-	var now = getTime();
+  var now = getTime();
 	// get management no
 	if(order_data || user_data || environment_data || font_data){
 		console.log("009: data_ready");
@@ -923,16 +923,16 @@ app.post('/post_json', function(req, res, next){
             console.log("206: user_insert_success");
           }
         });
-      }　else {
+    }　else {
         // data error
         console.log("e-007: DB preparation Error -man_insert-");
       }
-});
+    });
 
 // redirect to payment page
 app.post('/', function(req, res, next){
   // redirect to top page
-	res.redirect('/kosei');
+  res.redirect('/kosei');
 });
 
 // payment page
@@ -962,9 +962,9 @@ app.post('/upload', function(req, res, next){
   // init variable
   var got_arr = "";
   // get counter
-	var counter = req.get('X-Custom-Header');
+  var counter = req.get('X-Custom-Header');
   // input array
-	got_arr = counter.split(',');
+  got_arr = counter.split(',');
 	// image data
 	var item = req.body.data.sent_item;
 	// encoding data
@@ -972,22 +972,22 @@ app.post('/upload', function(req, res, next){
   // file data
   const fileData = encodedData.replace(/^data:\w+\/\w+;base64,/, '');
   // start decoding
- 	const decodedFile = new Buffer(fileData, 'base64');
+  const decodedFile = new Buffer(fileData, 'base64');
  	// extract extension
  	const fileExtension = encodedData.toString().slice(encodedData.indexOf('/') + 1, encodedData.indexOf(';'));
  	// root path
   var path = './public/uploads/' + got_arr.slice(-1)[0];
   // img path
- 	var img_path = path + '/' + String(got_arr[0]) + '.' + fileExtension;
+  var img_path = path + '/' + String(got_arr[0]) + '.' + fileExtension;
   // make directory
   // directory not exists
- 	if(!fs.existsSync(path)) {
+  if(!fs.existsSync(path)) {
     // make directory
-	 	fs.mkdir(path, function (err) {
-	 		if(err){
+    fs.mkdir(path, function (err) {
+      if(err){
         // making error
-	 			console.log("e-901: label_directory_making_error");
-	 		} else {
+        console.log("e-901: label_directory_making_error");
+      } else {
         // success
         console.log("904: label_directory_successfully_made");
         // generate img file
@@ -1000,24 +1000,24 @@ app.post('/upload', function(req, res, next){
             console.log("901: label_write_success");
             // lwip resizing
             sharp(img_path)
-		          .extract({ left: 0, top: 0, width: Math.round(Number(got_arr[1])), height: Math.round(Number(got_arr[2])) })
-					    .toFile(path + '/resized_' + String(got_arr[0]) + '.' + fileExtension, function(err) { 
-					    	if(err){
+            .extract({ left: 0, top: 0, width: Math.round(Number(got_arr[1])), height: Math.round(Number(got_arr[2])) })
+            .toFile(path + '/resized_' + String(got_arr[0]) + '.' + fileExtension, function(err) { 
+              if(err){
                   // resize error
-					    		console.log("e-999: Resize err");
-					    	} else {
+                  console.log("e-999: Resize err");
+                } else {
                   // success
-					    		console.log("999: Resize success");
+                  console.log("999: Resize success");
                   res.send("success");
-					    	}
-					   }); 
+                }
+              }); 
             // init variable
             init();
           };
         });
       }
-	 	});
-	} else {
+    });
+  } else {
     console.log("905: label_directory_already_exists");
     // writing file
     fs.writeFile(img_path, decodedFile, (err) => {
@@ -1029,17 +1029,17 @@ app.post('/upload', function(req, res, next){
         console.log("901: label_write_success");
         // lwip resize
         sharp(img_path)
-		      .extract({ left: 0, top: 0, width: Math.round(Number(got_arr[1])), height: Math.round(Number(got_arr[2])) })
-					.toFile(path + '/resized_' + String(got_arr[0]) + '.' + fileExtension, function(err) { 
-					 　if(err){
+        .extract({ left: 0, top: 0, width: Math.round(Number(got_arr[1])), height: Math.round(Number(got_arr[2])) })
+        .toFile(path + '/resized_' + String(got_arr[0]) + '.' + fileExtension, function(err) { 
+          　if(err){
               // resize error
-					    console.log("e-999: Resize err");
-					 　} else {
+              console.log("e-999: Resize err");
+            　} else {
               // success
-					    console.log("999: Resize success");
+              console.log("999: Resize success");
               res.send("success");
-					 　}
-				}); 
+            　}
+          }); 
         // init variable
         init();
       };
@@ -1054,7 +1054,7 @@ app.post('/pay_response', function(req, res, next){
   // body
   var base = req.body;
   // insert payment result
-	conn.query('INSERT INTO ?? (??, ??, ??, ??, ??, ??, ??, ??, ??, ??, ??, ??, ??, ??, ??, ??, ??) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', ['payment_result', 'rand_id', 'shop_id', 'order_id', 'price', 'job_cd', 'access_id', 'access_pass', 'forwarded', 'approve', 'tranid', 'trandate', 'checkstring', 'newcardflg', 'paytype', 'cardno', 'created_at', 'updated_at', global_id, base.ShopID, base.OrderID, base.Amount, base.JobCd, base.AccessID, base.AccessPass, base.Forwarded, base.Approve, base.TranID, base.TranDate, base.CheckString, base.NewCardFlag, base.PayType, base.CardNo, now, now], function (err, results) {
+  conn.query('INSERT INTO ?? (??, ??, ??, ??, ??, ??, ??, ??, ??, ??, ??, ??, ??, ??, ??, ??, ??) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', ['payment_result', 'rand_id', 'shop_id', 'order_id', 'price', 'job_cd', 'access_id', 'access_pass', 'forwarded', 'approve', 'tranid', 'trandate', 'checkstring', 'newcardflg', 'paytype', 'cardno', 'created_at', 'updated_at', global_id, base.ShopID, base.OrderID, base.Amount, base.JobCd, base.AccessID, base.AccessPass, base.Forwarded, base.Approve, base.TranID, base.TranDate, base.CheckString, base.NewCardFlag, base.PayType, base.CardNo, now, now], function (err, results) {
     if(err){
       // INSERT error
       console.log(err);
@@ -1072,14 +1072,14 @@ app.post('/pay_response', function(req, res, next){
         	conn.query('SELECT * FROM ?? WHERE ?? = ?', ['order', 'rand_id', rows[0].rand_id], function (err2, rows2) {
         		if(err2){
         			// SELECT error
-          		console.log("e-035: DB Error -INSERT- -environment- : " + err2);
-        		}
-        		if(rows2){
+              console.log("e-035: DB Error -INSERT- -environment- : " + err2);
+            }
+            if(rows2){
         			// mail body
-		          mailOptions.text = 'got order. please support it.\n\n[order]\n\ncustomer name：　' + rows2[0].username + '　\nLast name：　' + rows2[0].userruby + '\norganization：　' + rows2[0].usergroup + '\naddress：　' + rows2[0].useraddress + '\ntel：　' + rows2[0].usertel + '\nmail：　' + rows2[0].usermail + '\nto use date：　' + rows2[0].date + '\n\nprice：　' + base.Amount + 'yen（tax included）\n' + 'payment　：　done\n\n\nmanagement：　*****/login\n\nthank you';
+              mailOptions.text = 'got order. please support it.\n\n[order]\n\ncustomer name：　' + rows2[0].username + '　\nLast name：　' + rows2[0].userruby + '\norganization：　' + rows2[0].usergroup + '\naddress：　' + rows2[0].useraddress + '\ntel：　' + rows2[0].usertel + '\nmail：　' + rows2[0].usermail + '\nto use date：　' + rows2[0].date + '\n\nprice：　' + base.Amount + 'yen（tax included）\n' + 'payment　：　done\n\n\nmanagement：　*****/login\n\nthank you';
 		          // send mail
 		          transporter.sendMail(mailOptions, function( error, info ){
-		            if(error){
+                if(error){
 		              // mail sending error
 		              return console.log(error);
 		            } else {
@@ -1087,7 +1087,7 @@ app.post('/pay_response', function(req, res, next){
 		              console.log('Message sent: ' + info.response);
 		              // update order table
 		              conn.query('UPDATE ?? SET ?? = ? WHERE ?? = ?', ['order', 'paid', true, 'rand_id', global_id], function (err3, results3) {
-		                if(err){
+                    if(err){
 		                  // UPDATE error
 		                  console.log("e-038: DB Error -UPDATE- -man_order- : " + err3);
 		                } else {
@@ -1097,8 +1097,8 @@ app.post('/pay_response', function(req, res, next){
 		                  res.redirect('*****/comp');
 		                }
 		              });
-        				}
-        			});
+                }
+              });
             }
           });
         }
@@ -1142,7 +1142,7 @@ function getTime(){
 	var date = new Date();
 	date = date.toLocaleString().slice(0, 19).replace('T', ' ');
   var jikan = date.toLocaleString();
-	return jikan;
+  return jikan;
 }
 
 // MD5 module
